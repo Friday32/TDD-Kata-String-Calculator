@@ -1,5 +1,7 @@
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using TDD_Kata_String_Calculator;
 
 namespace Tests
@@ -82,6 +84,45 @@ namespace Tests
             }
             catch (Exception)
             {   
+            }
+        }
+
+        [Test]
+        public void TestAddThreeNumbers()
+        {
+            var calculator = new Calculator();
+            try
+            {
+                Assert.IsTrue(1110 == calculator.Add("1000,100,10"));
+            }
+            catch (Exception)
+            {
+                Assert.Fail();
+            }
+        }
+
+        [Test]
+        public void TestAddLotsOfNumbers()
+        {
+            var calculator = new Calculator();
+            try
+            {
+                var random = new Random();
+                var list = new List<int>();
+                int total = 0;
+                for (int i = 0; i < 100; ++i)
+                {
+                    var value = random.Next(1, 1000);
+                    total += value;
+                    list.Add(value);
+                }
+
+                var stringValue = list.Select(x => x.ToString()).Aggregate((a, b) => a + "," + b);
+                Assert.IsTrue(total == calculator.Add(stringValue));
+            }
+            catch (Exception)
+            {
+                Assert.Fail();
             }
         }
     }

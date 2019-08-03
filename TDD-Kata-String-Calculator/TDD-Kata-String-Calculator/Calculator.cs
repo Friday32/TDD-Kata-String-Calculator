@@ -23,15 +23,11 @@ namespace TDD_Kata_String_Calculator
             }
 
             int result = 0;
-            var index = numbers.IndexOf(',');
-            if(-1 == index)
+            var list = numbers.Split(',').Select(x => Int32.Parse(x));
+
+            foreach (var number in list)
             {
-                result = Int32.Parse(numbers);
-            }
-            else
-            {
-                result += Int32.Parse(numbers.Substring(0, index));
-                result += Int32.Parse(numbers.Substring(index+1, numbers.Length- (index + 1)));
+                result += number;
             }
 
             return result;
