@@ -41,8 +41,10 @@ namespace TDD_Kata_String_Calculator
                 return 0;
             }
 
+            ValidateAddInput(numbers);
+
             int result = 0;
-            var list = numbers.Split(',').Select(x => Int32.Parse(x));
+            var list = numbers.Split(new char[] { ',', '\n' }).Select(x => Int32.Parse(x));
 
             foreach (var number in list)
             {
