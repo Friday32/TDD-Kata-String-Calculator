@@ -127,6 +127,48 @@ namespace Tests
         }
 
         [Test]
+        public void TestDelimiterSequenceCommaNewlineInvalid()
+        {
+            try
+            {
+                var calculator = new Calculator();
+                Assert.IsFalse(calculator.ValidateAddInput("1,\n2"));
+            }
+            catch (Exception)
+            {
+                Assert.Fail();
+            }
+        }
+
+        [Test]
+        public void TestDelimiterSequenceNewlineCommaInvalid()
+        {
+            try
+            {
+                var calculator = new Calculator();
+                Assert.IsFalse(calculator.ValidateAddInput("1\n,2"));
+            }
+            catch (Exception)
+            {
+                Assert.Fail();
+            }
+        }
+
+        [Test]
+        public void TestNumbersWithNewlineAndCommaValid()
+        {
+            try
+            {
+                var calculator = new Calculator();
+                Assert.IsTrue(calculator.ValidateAddInput("1\n2,3"));
+            }
+            catch (Exception)
+            {
+                Assert.Fail();
+            }
+        }
+
+        [Test]
         public void TestCanUseNewLineAsDelimiters()
         {
             Assert.Fail();

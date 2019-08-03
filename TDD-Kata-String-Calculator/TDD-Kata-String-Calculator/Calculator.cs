@@ -2,11 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace TDD_Kata_String_Calculator
 {
     public class Calculator
     {
+        public bool ValidateAddInput(string numbers)
+        {
+            var result = !Regex.Match(numbers, @"(,\n|\n,)+").Success;
+            return result;
+
+        }
+
         /// <summary>
         /// The method adds numbers in a string.
         /// </summary>
