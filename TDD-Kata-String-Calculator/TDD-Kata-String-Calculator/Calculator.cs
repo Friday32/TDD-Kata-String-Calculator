@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace TDD_Kata_String_Calculator
 {
+
     public class Calculator
     {
         /// <summary>

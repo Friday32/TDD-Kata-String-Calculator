@@ -209,5 +209,22 @@ namespace Tests
                 Assert.Fail();
             }
         }
+
+        [Test]
+        public void TestCanUseDelimiterFormatString()
+        {
+            // Format string "//[delimiter]\n[numbers…]”
+            
+            try
+            {
+                var calculator = new Calculator();
+                Assert.IsTrue(6 == calculator.Add("\\[a]1\n2\na3"));
+            }
+            catch (Exception)
+            {
+                Assert.Fail();
+            }
+        }
+
     }
 }
