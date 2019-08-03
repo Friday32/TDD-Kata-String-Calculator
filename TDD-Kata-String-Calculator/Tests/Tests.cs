@@ -10,9 +10,21 @@ namespace Tests
         }
 
         [Test]
-        public void Test1()
+        public void TestAddEmptyStringReturnsZero()
         {
-            Assert.Pass();
+            Assert.Fail();
+        }
+
+        [Test]
+        public void TestAddSingleNumber()
+        {
+            Assert.Fail();
+        }
+
+        [Test]
+        public void TestAddTwoNumbers()
+        {
+            Assert.Fail();
         }
     }
 }
