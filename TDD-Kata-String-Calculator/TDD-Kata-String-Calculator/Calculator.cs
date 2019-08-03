@@ -22,7 +22,18 @@ namespace TDD_Kata_String_Calculator
                 return 0;
             }
 
-            var result = Int32.Parse(numbers);
+            int result = 0;
+            var index = numbers.IndexOf(',');
+            if(-1 == index)
+            {
+                result = Int32.Parse(numbers);
+            }
+            else
+            {
+                result += Int32.Parse(numbers.Substring(0, index));
+                result += Int32.Parse(numbers.Substring(index+1, numbers.Length- (index + 1)));
+            }
+
             return result;
         }
 
