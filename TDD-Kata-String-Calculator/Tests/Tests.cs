@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using TDD_Kata_String_Calculator;
 
 namespace Tests
 {
@@ -12,7 +13,8 @@ namespace Tests
         [Test]
         public void TestAddEmptyStringReturnsZero()
         {
-            Assert.Fail();
+            var calculator = new Calculator();
+            Assert.IsTrue( 0 == calculator.Add(""));
         }
 
         [Test]
