@@ -132,7 +132,11 @@ namespace Tests
             try
             {
                 var calculator = new Calculator();
-                Assert.IsFalse(calculator.ValidateAddInput("1,\n2"));
+                calculator.ValidateAddInput("1,\n2");
+            }
+            catch (InvalidDelimiterSequenceException)
+            {
+
             }
             catch (Exception)
             {
@@ -146,7 +150,11 @@ namespace Tests
             try
             {
                 var calculator = new Calculator();
-                Assert.IsFalse(calculator.ValidateAddInput("1\n,2"));
+                calculator.ValidateAddInput("1\n,2");
+            }
+            catch(InvalidDelimiterSequenceException)
+            {
+
             }
             catch (Exception)
             {
@@ -160,7 +168,7 @@ namespace Tests
             try
             {
                 var calculator = new Calculator();
-                Assert.IsTrue(calculator.ValidateAddInput("1\n2,3"));
+                calculator.ValidateAddInput("1\n2,3");
             }
             catch (Exception)
             {
@@ -171,14 +179,35 @@ namespace Tests
         [Test]
         public void TestCanUseNewLineAsDelimiters()
         {
-            Assert.Fail();
+            try
+            {
+                var calculator = new Calculator();
+                Assert.IsTrue(6 == calculator.Add("1\n2,3"));
+            }
+            catch (Exception)
+            {
+                Assert.Fail();
+            }
         }
 
 
         [Test]
         public void TestCannotUseNewLineAndCommaDelimitersSequentially()
         {
-            Assert.Fail();
+            try
+            {
+                var calculator = new Calculator();
+                calculator.Add("1\n2\n,3");
+                Assert.Fail();
+            }
+            catch (InvalidDelimiterSequenceException)
+            {
+                
+            }
+            catch (Exception)
+            {
+                Assert.Fail();
+            }
         }
     }
 }

@@ -8,10 +8,21 @@ namespace TDD_Kata_String_Calculator
 {
     public class Calculator
     {
-        public bool ValidateAddInput(string numbers)
+        /// <summary>
+        /// This method verifies that the number string passed to
+        /// the Add method is valid or not. Exceptions will be throw for
+        /// invalid input.
+        /// 
+        /// </summary>
+        /// <param name="numbers"></param>
+        /// <exception cref="InvalidDelimiterSequenceException"/>
+        public void ValidateAddInput(string numbers)
         {
-            var result = !Regex.Match(numbers, @"(,\n|\n,)+").Success;
-            return result;
+            var success = !Regex.Match(numbers, @"(,\n|\n,)+").Success;
+            if(!success)
+            {
+                throw new InvalidDelimiterSequenceException();
+            }
 
         }
 
