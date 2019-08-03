@@ -125,5 +125,18 @@ namespace Tests
                 Assert.Fail();
             }
         }
+
+        [Test]
+        public void TestCanUseNewLineAsDelimiters()
+        {
+            Assert.Fail();
+        }
+
+
+        [Test]
+        public void TestCannotUseNewLineAndCommaDelimitersSequentially()
+        {
+            Assert.Fail();
+        }
     }
 }
