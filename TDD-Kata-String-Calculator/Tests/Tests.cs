@@ -48,7 +48,7 @@ namespace Tests
             try
             {
                 var calculator = new Calculator();
-                calculator.Add("//[a]\n[1\n2a-5]");
+                calculator.Add("//[a]\n1\n2a-5");
                 Assert.Fail();
             }
             catch (NegativesNotAllowedException)
@@ -242,8 +242,8 @@ namespace Tests
             try
             {
                 var calculator = new Calculator();
-                calculator.UsesDelimiterFormatPattern("//[a]\n[1\n2\na3]", out string delimiter, out string numbers);
-                Assert.IsTrue("a" == delimiter);
+                calculator.UsesDelimiterFormatPattern("//[a]\n1\n2\na3", out IList<string> delimiters, out string numbers);
+                Assert.IsTrue("a" == delimiters[0]);
                 Assert.IsTrue("1\n2\na3" == numbers);
 
             }
@@ -259,7 +259,7 @@ namespace Tests
             try
             {
                 var calculator = new Calculator();
-                Assert.IsTrue(6 == calculator.Add("//[a]\n[1\n2a3]"));
+                Assert.IsTrue(6 == calculator.Add("//[a]\n1\n2a3"));
             }
             catch (Exception)
             {
@@ -274,7 +274,7 @@ namespace Tests
             {
                 var calculator = new Calculator();
                 Assert.IsTrue(1003 == calculator.Add("1,2,1000,1001"));
-                Assert.IsTrue(6 == calculator.Add("//[a]\n[2001a1\n2a3]"));
+                Assert.IsTrue(6 == calculator.Add("//[a]\n2001a1\n2a3"));
             }
             catch (Exception)
             {
@@ -288,13 +288,28 @@ namespace Tests
             try
             {
                 var calculator = new Calculator();
-                Assert.IsTrue(6 == calculator.Add("//[delimiter]\n[1\n2delimiter3]"));
-                Assert.IsTrue(6 == calculator.Add("//[q_7]\n[1q_72\n3]"));
+                Assert.IsTrue(6 == calculator.Add("//[delimiter]\n1\n2delimiter3"));
+                Assert.IsTrue(6 == calculator.Add("//[q_7]\n1q_72\n3"));
             }
             catch (Exception)
             {
                 Assert.Fail();
             }
         }
+
+        [Test]
+        public void TestCanUseMultipleDelimitersInFormatPattern()
+        {
+            try
+            {
+                var calculator = new Calculator();
+                Assert.IsTrue(6 == calculator.Add("//[*][%]\n1*2%3"));
+            }
+            catch (Exception)
+            {
+                Assert.Fail();
+            }
+        }
+
     }
 }

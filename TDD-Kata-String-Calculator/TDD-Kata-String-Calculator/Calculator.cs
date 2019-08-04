@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace TDD_Kata_String_Calculator
@@ -9,12 +8,12 @@ namespace TDD_Kata_String_Calculator
 
     public class Calculator
     {
-        public bool UsesDelimiterFormatPattern(in string input, out string delimiter, out string numbers)
+        public bool UsesDelimiterFormatPattern(in string input, out IList<string> delimiters, out string numbers)
         {
-            delimiter = "";
+            delimiters = new List<string>();
             numbers = "";
 
-            var pattern = @"^//\[(?<delimiter>.+)\]\n\[(?<numbers>.+)\]$";
+            var pattern = @"^//(\[(?<delimiter>[^\]]+)\])+\n(?<numbers>.+)$";
             var matches = Regex.Matches(input, pattern, RegexOptions.Singleline);
 
             if(1 != matches.Count())
@@ -22,7 +21,10 @@ namespace TDD_Kata_String_Calculator
                 return false;
             }
 
-            delimiter = matches[0].Groups["delimiter"].Value;
+            foreach(var delimiterCapture in matches[0].Groups["delimiter"].Captures)
+            {
+                delimiters.Add(delimiterCapture.ToString());
+            }
             numbers = matches[0].Groups["numbers"].Value;
             return true;
         }
@@ -59,10 +61,11 @@ namespace TDD_Kata_String_Calculator
                 return 0;
             }
 
-            string delimiter = ",";
-            if(UsesDelimiterFormatPattern(in numbers, out string delimitersTemp, out string numbersTemp))
+            var delimiters = new List<string>() { ",", "\n" };
+            if(UsesDelimiterFormatPattern(in numbers, out IList<string> delimitersTemp, out string numbersTemp))
             {
-                delimiter = delimitersTemp;
+                delimitersTemp.Add("\n");
+                delimiters = new List<string>(delimitersTemp);
                 numbers = numbersTemp;
             }
 
@@ -70,7 +73,7 @@ namespace TDD_Kata_String_Calculator
 
             int result = 0;
             var list = numbers
-                .Split(new string[] { delimiter, "\n" }, StringSplitOptions.None)
+                .Split(delimiters.ToArray(), StringSplitOptions.None)
                 .Select(x => {
                     var temp = Int32.Parse(x);
                     if(temp < 0)
