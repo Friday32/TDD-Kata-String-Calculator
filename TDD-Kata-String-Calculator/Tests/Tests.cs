@@ -26,7 +26,6 @@ namespace Tests
             var calculator = new Calculator();
             Assert.IsTrue(10 == calculator.Add("10"));
             Assert.IsTrue(5 == calculator.Add("5"));
-            Assert.IsTrue(-5 == calculator.Add("-5"));
         }
 
         [Test]
@@ -39,6 +38,20 @@ namespace Tests
                 Assert.Fail();
             }
             catch(NegativesNotAllowedException)
+            {
+            }
+        }
+
+        [Test]
+        public void TestNegativesNotAllowedWithDelimiterFormatPattern()
+        {
+            try
+            {
+                var calculator = new Calculator();
+                calculator.Add("//[a]\n[1\n2a-5]");
+                Assert.Fail();
+            }
+            catch (NegativesNotAllowedException)
             {
             }
         }

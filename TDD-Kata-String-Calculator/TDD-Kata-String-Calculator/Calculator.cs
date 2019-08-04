@@ -70,7 +70,16 @@ namespace TDD_Kata_String_Calculator
             ValidateAddInput(numbers);
 
             int result = 0;
-            var list = numbers.Split(new char[] { delimiter.ToCharArray()[0], '\n' }).Select(x => Int32.Parse(x));
+            var list = numbers
+                .Split(new char[] { delimiter.ToCharArray()[0], '\n' })
+                .Select(x => {
+                    var temp = Int32.Parse(x);
+                    if(temp < 0)
+                    {
+                        throw new NegativesNotAllowedException();
+                    }
+                    return temp;
+                }); ;
 
             foreach (var number in list)
             {
