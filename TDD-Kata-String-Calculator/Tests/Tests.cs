@@ -211,14 +211,31 @@ namespace Tests
         }
 
         [Test]
-        public void TestCanUseDelimiterFormatString()
+        public void TestDelimiterFormatPattern()
+        {
+            try
+            {
+                var calculator = new Calculator();
+                calculator.UsesDelimiterFormatPattern("//[a]\n[1\n2\na3]", out string delimiter, out string numbers);
+                Assert.IsTrue("a" == delimiter);
+                Assert.IsTrue("1\n2\na3" == numbers);
+
+            }
+            catch (Exception)
+            {
+                Assert.Fail();
+            }
+        }
+
+        [Test]
+        public void TestCanUseDelimiterFormatPattern()
         {
             // Format string "//[delimiter]\n[numbers…]”
             
             try
             {
                 var calculator = new Calculator();
-                Assert.IsTrue(6 == calculator.Add("\\[a]1\n2\na3"));
+                Assert.IsTrue(6 == calculator.Add("//[a]\n[1\n2a3]"));
             }
             catch (Exception)
             {

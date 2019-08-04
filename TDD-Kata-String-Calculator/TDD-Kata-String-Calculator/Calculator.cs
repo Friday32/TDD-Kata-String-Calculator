@@ -9,6 +9,24 @@ namespace TDD_Kata_String_Calculator
 
     public class Calculator
     {
+        public bool UsesDelimiterFormatPattern(in string input, out string delimiter, out string numbers)
+        {
+            delimiter = "";
+            numbers = "";
+
+            var pattern = @"^//\[(?<delimiter>.+)\]\n\[(?<numbers>.+)\]$";
+            var matches = Regex.Matches(input, pattern, RegexOptions.Singleline);
+
+            if(1 != matches.Count())
+            {
+                return false;
+            }
+
+            delimiter = matches[0].Groups["delimiter"].Value;
+            numbers = matches[0].Groups["numbers"].Value;
+            return true;
+        }
+    
         /// <summary>
         /// This method verifies that the number string passed to
         /// the Add method is valid or not. Exceptions will be throw for
@@ -17,7 +35,7 @@ namespace TDD_Kata_String_Calculator
         /// </summary>
         /// <param name="numbers"></param>
         /// <exception cref="InvalidDelimiterSequenceException"/>
-        public void ValidateAddInput(string numbers)
+        public void ValidateAddInput(string numbers)                    
         {
             var success = !Regex.Match(numbers, @"(,\n|\n,)+").Success;
             if(!success)
@@ -42,10 +60,17 @@ namespace TDD_Kata_String_Calculator
                 return 0;
             }
 
+            string delimiter = ",";
+            if(UsesDelimiterFormatPattern(in numbers, out string delimitersTemp, out string numbersTemp))
+            {
+                delimiter = delimitersTemp;
+                numbers = numbersTemp;
+            }
+
             ValidateAddInput(numbers);
 
             int result = 0;
-            var list = numbers.Split(new char[] { ',', '\n' }).Select(x => Int32.Parse(x));
+            var list = numbers.Split(new char[] { delimiter.ToCharArray()[0], '\n' }).Select(x => Int32.Parse(x));
 
             foreach (var number in list)
             {
