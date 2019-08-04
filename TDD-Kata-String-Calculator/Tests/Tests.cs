@@ -311,5 +311,22 @@ namespace Tests
             }
         }
 
+        [Test]
+        public void TestCanUseMultipleVariableLengthDelimitersInFormatPattern()
+        {
+            try
+            {
+                var calculator = new Calculator();
+                Assert.IsTrue(13 == calculator.Add("//[patt1][%][joe]\n1joe2%3patt17"));
+            }
+            catch (Exception)
+            {
+                Assert.Fail();
+            }
+
+        }
+
+
+
     }
 }
