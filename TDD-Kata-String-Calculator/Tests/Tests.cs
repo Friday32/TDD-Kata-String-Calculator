@@ -37,8 +37,9 @@ namespace Tests
                 calculator.Add("-5");
                 Assert.Fail();
             }
-            catch(NegativesNotAllowedException)
+            catch(NegativesNotAllowedException e)
             {
+                Assert.IsTrue("negatives not allowed" == e.Message);
             }
         }
 
@@ -158,7 +159,7 @@ namespace Tests
             try
             {
                 var calculator = new Calculator();
-                calculator.ValidateAddInput("1,\n2");
+                calculator.Add("1,\n2");
             }
             catch (InvalidDelimiterSequenceException)
             {
@@ -176,7 +177,7 @@ namespace Tests
             try
             {
                 var calculator = new Calculator();
-                calculator.ValidateAddInput("1\n,2");
+                calculator.Add("1\n,2");
             }
             catch(InvalidDelimiterSequenceException)
             {
@@ -194,7 +195,7 @@ namespace Tests
             try
             {
                 var calculator = new Calculator();
-                calculator.ValidateAddInput("1\n2,3");
+                calculator.Add("1\n2,3");
             }
             catch (Exception)
             {
@@ -229,23 +230,6 @@ namespace Tests
             catch (InvalidDelimiterSequenceException)
             {
                 
-            }
-            catch (Exception)
-            {
-                Assert.Fail();
-            }
-        }
-
-        [Test]
-        public void TestDelimiterFormatPattern()
-        {
-            try
-            {
-                var calculator = new Calculator();
-                calculator.UsesDelimiterFormatPattern("//[a]\n1\n2\na3", out IList<string> delimiters, out string numbers);
-                Assert.IsTrue("a" == delimiters[0]);
-                Assert.IsTrue("1\n2\na3" == numbers);
-
             }
             catch (Exception)
             {
@@ -323,10 +307,6 @@ namespace Tests
             {
                 Assert.Fail();
             }
-
         }
-
-
-
     }
 }
