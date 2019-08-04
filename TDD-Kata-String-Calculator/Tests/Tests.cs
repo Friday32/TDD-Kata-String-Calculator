@@ -256,8 +256,6 @@ namespace Tests
         [Test]
         public void TestCanUseDelimiterFormatPattern()
         {
-            // Format string "//[delimiter]\n[numbers…]”
-            
             try
             {
                 var calculator = new Calculator();
@@ -277,6 +275,20 @@ namespace Tests
                 var calculator = new Calculator();
                 Assert.IsTrue(1003 == calculator.Add("1,2,1000,1001"));
                 Assert.IsTrue(6 == calculator.Add("//[a]\n[2001a1\n2a3]"));
+            }
+            catch (Exception)
+            {
+                Assert.Fail();
+            }
+        }
+
+        [Test]
+        public void TestCanUseStringDelimitersWithFormatPattern()
+        {
+            try
+            {
+                var calculator = new Calculator();
+                Assert.IsTrue(6 == calculator.Add("//[delimiter]\n[1\n2delimiter3]"));
             }
             catch (Exception)
             {
