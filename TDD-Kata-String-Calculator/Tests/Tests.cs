@@ -289,6 +289,7 @@ namespace Tests
             {
                 var calculator = new Calculator();
                 Assert.IsTrue(6 == calculator.Add("//[delimiter]\n[1\n2delimiter3]"));
+                Assert.IsTrue(6 == calculator.Add("//[q_7]\n[1q_72\n3]"));
             }
             catch (Exception)
             {

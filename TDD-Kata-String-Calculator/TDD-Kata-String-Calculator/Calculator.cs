@@ -70,7 +70,7 @@ namespace TDD_Kata_String_Calculator
 
             int result = 0;
             var list = numbers
-                .Split(new char[] { delimiter.ToCharArray()[0], '\n' })
+                .Split(new string[] { delimiter, "\n" }, StringSplitOptions.None)
                 .Select(x => {
                     var temp = Int32.Parse(x);
                     if(temp < 0)
