@@ -30,6 +30,20 @@ namespace Tests
         }
 
         [Test]
+        public void TestNegativesNotAllowed()
+        {
+            try
+            {
+                var calculator = new Calculator();
+                calculator.Add("-5");
+                Assert.Fail();
+            }
+            catch(NegativesNotAllowedException)
+            {
+            }
+        }
+
+        [Test]
         public void TestFailsToAddSingleValue10b()
         {
             var calculator = new Calculator();
@@ -64,7 +78,6 @@ namespace Tests
             try
             {
                 Assert.IsTrue(4 == calculator.Add("1,3"));
-                Assert.IsTrue(2 == calculator.Add("-5,7"));
                 Assert.IsTrue(177 == calculator.Add("123,54"));
             }
             catch (Exception)

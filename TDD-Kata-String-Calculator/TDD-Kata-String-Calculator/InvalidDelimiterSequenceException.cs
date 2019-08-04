@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace TDD_Kata_String_Calculator
 {
@@ -8,7 +6,7 @@ namespace TDD_Kata_String_Calculator
     public class InvalidDelimiterSequenceException : Exception
     {
         public InvalidDelimiterSequenceException()
-            : base("Invalid delimiter sequence.")
+            : base("invalid delimiter sequence")
         {
 
         }
