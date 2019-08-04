@@ -42,7 +42,6 @@ namespace TDD_Kata_String_Calculator
             {
                 throw new InvalidDelimiterSequenceException();
             }
-
         }
 
         /// <summary>
@@ -77,7 +76,12 @@ namespace TDD_Kata_String_Calculator
                     if(temp < 0)
                     {
                         throw new NegativesNotAllowedException();
+                    } 
+                    else if (temp > 1000)
+                    {
+                        return 0;
                     }
+
                     return temp;
                 }); ;
 

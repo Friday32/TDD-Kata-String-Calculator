@@ -275,7 +275,7 @@ namespace Tests
             try
             {
                 var calculator = new Calculator();
-                Assert.IsTrue(1004 == calculator.Add("1,2,1000,1001"));
+                Assert.IsTrue(1003 == calculator.Add("1,2,1000,1001"));
                 Assert.IsTrue(6 == calculator.Add("//[a]\n[2001a1\n2a3]"));
             }
             catch (Exception)
